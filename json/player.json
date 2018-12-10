@@ -1,0 +1,18 @@
+{
+    "name": "string - player name",
+    "job": "enum - player jobs such as warrior/mage/theif",
+    "characteristics": {
+        "color": "enum - red/blue/green/etc",
+        "gender": "enum - male/female",
+        "style": "enum - hair styles and or maybe outfits"
+    },
+    "currentHp": "int - current health points",
+    "stats": {
+        "hp": "int - health points",
+        "mp": "int - magic power",
+        "spd": "int - speed",
+        "def": "int - physical defense",
+        "wis": "int - wisdom - maybe affects experience gain, and shop prices",
+        "luck": "int - affects chance of finding good events"
+    }
+}

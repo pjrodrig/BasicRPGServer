@@ -1,0 +1,8 @@
+use a document database for the serialized game object
+use relational database for job information, or maybe flat files?
+I could duplicate the information about jobs and items on the client so that I dont have to query anything
+
+
+controller - api layer 
+service - logic layer
+data - database layer

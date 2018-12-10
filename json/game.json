@@ -1,0 +1,10 @@
+{
+    "players": [
+        {
+            "player...": "players would be in turn order so that the information doesnt have to be stored on the player object"
+        }
+    ],
+    "turn": "int - current player's turn",
+    "week": "number of weeks played",
+    "gameEvent": "special rules applied to all players"
+}

@@ -1,0 +1,11 @@
+{
+    "name": "string - item name",
+    "type": "enum - item type weapon/sheild/armor",
+    "statModifiers": {
+        "stats...": "same as player stats. Simply sum together"
+    },
+    "special": {
+        "type": "enum - what will this special affect/when to apply",
+        "modifier": "math function - perform some function on a stat"
+    }
+}
