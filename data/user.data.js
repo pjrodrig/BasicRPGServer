@@ -2,9 +2,9 @@ module.exports = function(db) {
     return {
         getUserByName: (username, resolve, reject) => {
             db.query(
-                "SELECT * " +
-                "FROM boardrpg.user " +
-                "WHERE name=$1"
+                'SELECT * ' +
+                'FROM boardrpg.user ' +
+                'WHERE name=$1'
             , [username], (err, res) => {
                 if(err) {
                     reject(err);
@@ -21,12 +21,12 @@ module.exports = function(db) {
         //TODO: make username check case insensitive
         post: (username, resolve, reject) => {
             db.query(
-                "INSERT INTO boardrpg.user " +
-                "VALUES($1) " +
-                "RETURNING *"
+                'INSERT INTO boardrpg.user ' +
+                'VALUES($1) ' +
+                'RETURNING *'
             , [username], (err, res) => {
                 if(err) {
-                    if(err.constraint === "uniqueName") {
+                    if(err.constraint === 'uniqueName') {
                         reject({
                             errorCode: 409,
                             message: `Username '${username}' already exists`

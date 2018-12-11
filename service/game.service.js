@@ -1,14 +1,11 @@
 module.exports = function(db){
-    const {gameData} = require('../data')(db);
+    const {gameData, userData} = require('../data')(db);
     return {
-        getGames: (userId) => {
-            gameData.get(username, resolve, reject);
+        getGamesByUserId: (userId, resolve, reject) => {
+            gameData.getGamesByUserId(userId, resolve, reject);
         },
         postGame: (game, resolve, reject) => {
-            gameData.postGame(game, res => {
-                res.data.id = res.id;
-                resolve(res.data);
-            }, reject);
+            gameData.postGame(game, resolve, reject);
         }
     }
 };

@@ -7,12 +7,12 @@ module.exports = function(app, db) {
     const {gameService} = require('../service')(db);
 
     app.get('/game', (req, res) => {
-
+        
     });
 
-    app.get('/games/user', (req, res) => {
+    app.get('/game/user', (req, res) => {
         if(req.query && req.query.userId) {
-            gameService.getGames(req.query.userId, games => {
+            gameService.getGamesByUserId(req.query.userId, games => {
                 res.send(games);
             }, err => {
                 res.status(err.errorCode || 500).send(err.message);
