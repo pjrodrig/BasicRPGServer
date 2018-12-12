@@ -3,7 +3,7 @@ module.exports = function(db) {
         getUserByName: (username, resolve, reject) => {
             db.query(
                 'SELECT * ' +
-                'FROM boardrpg.user ' +
+                'FROM rpguser ' +
                 'WHERE name=$1'
             , [username], (err, res) => {
                 if(err) {
@@ -21,7 +21,7 @@ module.exports = function(db) {
         //TODO: make username check case insensitive
         post: (username, resolve, reject) => {
             db.query(
-                'INSERT INTO boardrpg.user ' +
+                'INSERT INTO rpguser ' +
                 'VALUES($1) ' +
                 'RETURNING *'
             , [username], (err, res) => {

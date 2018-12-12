@@ -17,7 +17,7 @@ module.exports = function(db) {
         },
         postGame: (game, resolve, reject) => {
             db.query(
-                'INSERT INTO boardrpg.game ' +
+                'INSERT INTO game ' +
                 'VALUES($1) ' +
                 'RETURNING *'
             , [game], (err, res) => {
@@ -34,7 +34,7 @@ module.exports = function(db) {
                         return `($${++i}, $${++i})`;
                     }).join(", ");
                     db.query(
-                        'INSERT INTO boardrpg.user_game ' + 
+                        'INSERT INTO rpguser_game ' + 
                         'VALUES ' + insertionString
                     ,values, playerErr => {
                         if(playerErr) {
@@ -42,7 +42,7 @@ module.exports = function(db) {
                         }
                     });
                     db.query(
-                        'UPDATE boardrpg.game ' + 
+                        'UPDATE game ' + 
                         'SET data = $1 ' +
                         'WHERE id = $2 ' +
                         'RETURNING *'
