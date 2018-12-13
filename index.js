@@ -11,6 +11,9 @@ const options = {
 };
 
 const app = express();
+
+app.use(bodyParser.json());
+
 https.createServer(options, app).listen(port);
 
 require('./controller')(app, db);
