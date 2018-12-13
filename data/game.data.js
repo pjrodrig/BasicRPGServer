@@ -4,9 +4,9 @@ module.exports = function(db) {
             db.query(
                 'SELECT data ' +
                 'FROM (SELECT game_id as id ' +
-                      'FROM boardrpg.user_game ' +
-                      'WHERE user_id = $1) user_game INNER JOIN boardrpg.game ' +
-                      'ON user_game.id = boardrpg.game.id'
+                      'FROM rpguser_game ' +
+                      'WHERE user_id = $1) rpguser_game INNER JOIN game ' +
+                      'ON rpguser_game.id = game.id'
             , [userId], (err, res) => {
                 if(err) {
                     reject(err);
