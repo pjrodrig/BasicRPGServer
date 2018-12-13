@@ -1,5 +1,6 @@
+const express = require('express');
 const bodyParser = require('body-parser');
-const app = require('https');
+const https = require('https');
 const fs = require('fs');
 const db = require('./db');
 
@@ -9,15 +10,10 @@ const options = {
   cert: fs.readFileSync('./162.208.11.43.cert')
 };
 
-app.createServer(options, (req, res) => {
-  res.writeHead(200);
-  res.end('started');
-});
+const app = express();
+https.createServer(options, app).listen(port);
 
 require('./controller')(app, db);
-app.listen(port, () => {
-  console.log('Listening on ' + port);
-});
 
 app.get("/status", (req, res) => {
   res.send("OK");
