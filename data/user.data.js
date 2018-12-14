@@ -1,5 +1,5 @@
 module.exports = function(db) {
-    return {
+    const api = {
         getUserByName: (username, resolve, reject) => {
             db.query(
                 'SELECT * ' +
@@ -39,5 +39,7 @@ module.exports = function(db) {
                 }
             });
         }
-    }
+    };
+
+    return api;
 };

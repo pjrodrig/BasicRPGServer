@@ -1,5 +1,5 @@
 module.exports = function(db) {
-    return {
+    const api = {
         getGamesByUserId: (userId, resolve, reject) => {
             db.query(
                 'SELECT data ' +
@@ -26,7 +26,7 @@ module.exports = function(db) {
                 } else {
                     let gameRes = res.rows[0];
                     gameRes.data.id = gameRes.id;
-                    this.putGame(gameRes, resolve, reject);
+                    api.putGame(gameRes, resolve, reject);
                     let values = [];
                     let i = 0;
                     let insertionString = gameRes.data.players.map(player => {
@@ -59,5 +59,7 @@ module.exports = function(db) {
                 }
             });
         }
-    }
+    };
+
+    return api;
 };
