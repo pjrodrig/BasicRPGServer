@@ -6,6 +6,9 @@ module.exports = function(db){
         },
         postGame: (game, resolve, reject) => {
             gameData.postGame(game, resolve, reject);
+        },
+        putGame: (game, resolve, reject) => {
+            gameData.putGame(game, resolve, reject);
         }
     }
 };

@@ -26,6 +26,7 @@ module.exports = function(db) {
                 } else {
                     let gameRes = res.rows[0];
                     gameRes.data.id = gameRes.id;
+                    this.putGame(gameRes, resolve, reject);
                     let values = [];
                     let i = 0;
                     let insertionString = gameRes.data.players.map(player => {
@@ -36,22 +37,25 @@ module.exports = function(db) {
                     db.query(
                         'INSERT INTO rpguser_game ' + 
                         'VALUES ' + insertionString
-                    ,values, playerErr => {
+                    , values, playerErr => {
                         if(playerErr) {
                             console.error(playerErr);
                         }
                     });
-                    db.query(
-                        'UPDATE game ' + 
-                        'SET data = $1 ' +
-                        'WHERE id = $2 ' +
-                        'RETURNING *'
-                    , [gameRes.data, gameRes.id], (gameErr, secondGameRes) => {
-                        if(gameErr) {
-                            console.error(gameErr);
-                        }
-                        resolve(secondGameRes.rows[0].data);
-                    });
+                }
+            });
+        },
+        putGame: (game, resolve, reject) => {
+            db.query(
+                'UPDATE game ' +
+                'SET data = $1 ' +
+                'WHERE id = $2 ' +
+                'RETURNING *'
+            , [game, game.id], (err, res) => {
+                if(err) {
+                    reject(err);
+                } else {
+                    resolve(res.rows[0]);
                 }
             });
         }

@@ -33,4 +33,16 @@ module.exports = function(app, db) {
             res.status(400).send('Missing request body');
         }
     });
+
+    app.put('/game', (req, res) => {
+        if(req.body) {
+            gameService.putGame(req.body, game => {
+                res.send(game);
+            }, err => {
+                res.status(err.errorCode || 500).send(err.message);
+            });
+        } else {
+            res.status(400).send('Missing request body');
+        }
+    });
 };
