@@ -30,7 +30,7 @@ module.exports = function(db) {
                     let values = [];
                     let i = 0;
                     let insertionString = gameRes.data.players.map(player => {
-                        values.push(player.userId);
+                        values.push(player.id);
                         values.push(gameRes.id);
                         return `($${++i}, $${++i})`;
                     }).join(", ");
