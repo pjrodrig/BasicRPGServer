@@ -26,7 +26,7 @@ module.exports = function(db) {
                 } else {
                     let gameRes = res.rows[0];
                     gameRes.data.id = gameRes.id;
-                    api.putGame(gameRes, resolve, reject);
+                    api.putGame(gameRes.data, resolve, reject);
                     let values = [];
                     let i = 0;
                     let insertionString = gameRes.data.players.map(player => {
