@@ -16,9 +16,9 @@ module.exports = function(db) {
         postGameData: (gameData, resolve, reject) => {
             db.query(
                 'INSERT INTO game_data ' +
-                'VALUES($1) ' +
+                'VALUES($1, $2) ' +
                 'RETURNING *'
-            , [gameData], (err, res) => {
+            , [gameData, gameData.id], (err, res) => {
                 if(err) {
                     reject(err);
                 } else {
@@ -26,7 +26,7 @@ module.exports = function(db) {
                 }
             });
         },
-        putGameData: (game, resolve, reject) => {
+        putGameData: (gameData, resolve, reject) => {
             db.query(
                 'UPDATE game_data ' +
                 'SET data = $1 ' +
