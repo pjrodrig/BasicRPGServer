@@ -6,3 +6,7 @@ I could duplicate the information about jobs and items on the client so that I d
 controller - api layer 
 service - logic layer
 data - database layer
+
+
+TODO
+Add api for player updates so that a player may only change their own data. Merging and validation will happen on the backend.
