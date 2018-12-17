@@ -15,6 +15,13 @@ module.exports = function(db) {
                         playersReady = game.players[i].isInitialized;
                     }
                     game.isStarted = playersReady;
+                    if(game.isStarted) {
+                        let reorderedPlayers = [];
+                        while(game.players.length) {
+                            reorderedPlayers.push(game.players.splice(Math.floor(Math.random() * game.players.length), 1));
+                        }
+                        game.players = reorderedPlayers;
+                    }
                 }
                 gameData.putGame(game, resolve, reject);
             }, reject);
