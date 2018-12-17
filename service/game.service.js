@@ -4,6 +4,9 @@ module.exports = function(db){
         getGamesByUserId: (userId, resolve, reject) => {
             gameData.getGamesByUserId(userId, resolve, reject);
         },
+        getLastUpdated: (gameId, resolve, reject) => {
+            gameData.getLastUpdated(gameId, resolve, reject);
+        },
         postGame: (game, resolve, reject) => {
             gameData.postGame(game, resolve, reject);
         },

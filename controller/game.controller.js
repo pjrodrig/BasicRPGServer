@@ -22,6 +22,18 @@ module.exports = function(app, db) {
         }
     });
 
+    app.get('/game/lastUpdated', (req, res) => {
+        if(req.query && req.query.gameId) {
+            gameService.getLastUpdated(req.query.gameId, created => {
+                res.send(created);
+            }, err => {
+                res.status(err.errorCode || 500).send(err.message);
+            });
+        } else {
+            res.status(400).send('Missing required parameter "gameId"');
+        }
+    });
+
     app.post('/game', (req, res) => {
         if(req.body) {
             gameService.postGame(req.body, game => {

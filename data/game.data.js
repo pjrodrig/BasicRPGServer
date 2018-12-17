@@ -28,10 +28,23 @@ module.exports = function(db) {
                 }
             });
         },
+        getLastUpdated: (gameId, resolve, reject) => {
+            db.query(
+                'SELECT created ' +
+                'FROM game ' +
+                'WHERE id = $1'
+            , [gameId], (err, res) => {
+                if(err) {
+                    reject(err);
+                } else {
+                    resolve(res.rows[0].data);
+                }
+            });
+        },
         postGame: (game, resolve, reject) => {
             db.query(
                 'INSERT INTO game ' +
-                'VALUES($1) ' +
+                'VALUES($1, ) ' +
                 'RETURNING *'
             , [game], (err, res) => {
                 if(err) {
