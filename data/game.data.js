@@ -34,10 +34,11 @@ module.exports = function(db) {
                 'FROM game ' +
                 'WHERE id = $1'
             , [gameId], (err, res) => {
+                console.log(err);
+                console.log(res);
                 if(err) {
                     reject(err);
                 } else {
-                    console.log(res);
                     resolve(res.rows[0]);
                 }
             });

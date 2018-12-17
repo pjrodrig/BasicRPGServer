@@ -23,6 +23,7 @@ module.exports = function(app, db) {
     });
 
     app.get('/game/lastUpdated', (req, res) => {
+        console.log("Received request for /game/lastUpdated");
         if(req.query && req.query.gameId) {
             gameService.getLastUpdated(req.query.gameId, created => {
                 res.send(created);
