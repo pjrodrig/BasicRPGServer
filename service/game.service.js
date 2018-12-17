@@ -1,6 +1,9 @@
 module.exports = function(db){
     const {gameData} = require('../data')(db);
     return {
+        getGame: (gameId, resolve, reject) => {
+            gameData.getGame(gameId, resolve, reject);
+        },
         getGamesByUserId: (userId, resolve, reject) => {
             gameData.getGamesByUserId(userId, resolve, reject);
         },

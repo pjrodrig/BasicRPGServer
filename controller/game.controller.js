@@ -7,7 +7,15 @@ module.exports = function(app, db) {
     const {gameService} = require('../service')(db);
 
     app.get('/game', (req, res) => {
-        
+        if(req.query && req.query.gameId) {
+            gameService.getGame(req.query.gameId, game => {
+                res.send(game);
+            }, err => {
+                res.status(err.errorCode || 500).send(err.message);
+            });
+        } else {
+            res.status(400).send('Missing required parameter "gameId"');
+        }
     });
 
     app.get('/game/user', (req, res) => {
@@ -23,10 +31,9 @@ module.exports = function(app, db) {
     });
 
     app.get('/game/lastUpdated', (req, res) => {
-        console.log("Received request for /game/lastUpdated");
         if(req.query && req.query.gameId) {
-            gameService.getLastUpdated(req.query.gameId, created => {
-                res.send(created);
+            gameService.getLastUpdated(req.query.gameId, game => {
+                res.send(game);
             }, err => {
                 res.status(err.errorCode || 500).send(err.message);
             });
