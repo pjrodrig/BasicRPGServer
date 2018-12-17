@@ -9,7 +9,10 @@ module.exports = function(db) {
                 if(err) {
                     reject(err);
                 } else {
-                    resolve(res.rows[0].data);
+                    let gameRow = res.rows[0];
+                    gameRow.data.lastUpdated = new Date(gameRow.last_updated).getTime();
+                    gameRow.data.created = new Date(gameRow.created).getTime();
+                    resolve(gameRow.data);
                 }
             });
         },
@@ -24,29 +27,31 @@ module.exports = function(db) {
                 if(err) {
                     reject(err);
                 } else {
-                    resolve({games: res.rows.map(row => row.data)});
+                    resolve({games: res.rows.map(row => {
+                        row.data.lastUpdated = new Date(row.last_updated).getTime();
+                        row.data.created = new Date(row.created).getTime();
+                        return row.data;
+                    })});
                 }
             });
         },
         getLastUpdated: (gameId, resolve, reject) => {
             db.query(
-                'SELECT created ' +
+                'SELECT last_updated ' +
                 'FROM game ' +
                 'WHERE id = $1'
             , [gameId], (err, res) => {
-                console.log(err);
-                console.log(res);
                 if(err) {
                     reject(err);
                 } else {
-                    resolve(res.rows[0]);
+                    resolve({lastUpdated: res.rows[0].last_updated});
                 }
             });
         },
         postGame: (game, resolve, reject) => {
             db.query(
                 'INSERT INTO game ' +
-                'VALUES($1, ) ' +
+                'VALUES($1, (now() at time zone "utc"), (now() at time zone "utc")) ' +
                 'RETURNING *'
             , [game], (err, res) => {
                 if(err) {
@@ -76,14 +81,17 @@ module.exports = function(db) {
         putGame: (game, resolve, reject) => {
             db.query(
                 'UPDATE game ' +
-                'SET data = $1 ' +
+                'SET data = $1, last_updated = (now() at time zone "utc")' +
                 'WHERE id = $2 ' +
                 'RETURNING *'
             , [game, game.id], (err, res) => {
                 if(err) {
                     reject(err);
                 } else {
-                    resolve(res.rows[0].data);
+                    let gameRow = res.rows[0];
+                    gameRow.data.lastUpdated = new Date(gameRow.last_updated).getTime();
+                    gameRow.data.created = new Date(gameRow.created).getTime();
+                    resolve(gameRow.data);
                 }
             });
         }
