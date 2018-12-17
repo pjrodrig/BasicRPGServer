@@ -37,7 +37,7 @@ module.exports = function(db) {
                 if(err) {
                     reject(err);
                 } else {
-                    resolve(res.rows[0].data);
+                    resolve(res.rows[0]);
                 }
             });
         },
