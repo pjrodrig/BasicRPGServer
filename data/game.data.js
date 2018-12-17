@@ -1,5 +1,18 @@
 module.exports = function(db) {
     const api = {
+        getGame: (gameId, resolve, reject) => {
+            db.query(
+                'SELECT * ' +
+                'FROM game ' +
+                'WHERE id = $1'
+            , [gameId], (err, res) => {
+                if(err) {
+                    reject(err);
+                } else {
+                    resolve(res.rows[0].data);
+                }
+            });
+        },
         getGamesByUserId: (userId, resolve, reject) => {
             db.query(
                 'SELECT data ' +
