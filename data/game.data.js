@@ -44,7 +44,7 @@ module.exports = function(db) {
                 if(err) {
                     reject(err);
                 } else {
-                    resolve({lastUpdated: res.rows[0].last_updated});
+                    resolve({lastUpdated:  new Date(res.rows[0].last_updated).getTime()});
                 }
             });
         },
