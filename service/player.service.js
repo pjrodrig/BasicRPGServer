@@ -21,6 +21,8 @@ module.exports = function(db) {
                             reorderedPlayers.push(game.players.splice(Math.floor(Math.random() * game.players.length), 1));
                         }
                         game.players = reorderedPlayers;
+                        game.turn = 1;
+                        game.week = 1;
                     }
                 }
                 gameData.putGame(game, resolve, reject);
