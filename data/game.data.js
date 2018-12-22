@@ -54,7 +54,7 @@ module.exports = function(db) {
         postGame: (game, resolve, reject) => {
             db.query(
                 'INSERT INTO game ' +
-                'VALUES($1, (now() at time zone "utc"), (now() at time zone "utc")) ' +
+                'VALUES($1, NOW(), NOW()) ' +
                 'RETURNING *'
             , [game], (err, res) => {
                 if(err) {
@@ -85,7 +85,7 @@ module.exports = function(db) {
         putGame: (game, resolve, reject) => {
             db.query(
                 'UPDATE game ' +
-                'SET data = $1, last_updated = (now() at time zone "utc")' +
+                'SET data = $1, last_updated = NOW()' +
                 'WHERE id = $2 ' +
                 'RETURNING *'
             , [game, game.id], (err, res) => {
