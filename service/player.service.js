@@ -18,7 +18,7 @@ module.exports = function(db) {
                     if(game.isStarted) {
                         let reorderedPlayers = [];
                         while(game.players.length) {
-                            reorderedPlayers.push(game.players.splice(Math.floor(Math.random() * game.players.length), 1));
+                            reorderedPlayers.push(game.players.splice(Math.floor(Math.random() * game.players.length), 1)[0]);
                         }
                         game.players = reorderedPlayers;
                         game.turn = 1;
