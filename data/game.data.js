@@ -54,7 +54,7 @@ module.exports = function(db) {
         postGame: (game, resolve, reject) => {
             db.query(
                 'INSERT INTO game ' +
-                'VALUES($1, 0, NOW(), NOW()) ' +
+                'VALUES(DEFAULT, $1, NOW(), NOW()) ' +
                 'RETURNING *'
             , [game], (err, res) => {
                 if(err) {

@@ -19,7 +19,7 @@ module.exports = function(db) {
                 'INSERT INTO game_data ' +
                 'VALUES($1, $2) ' +
                 'RETURNING *'
-            , [gameData, gameData.id], (err, res) => {
+            , [gameData.id, gameData], (err, res) => {
                 if(err) {
                     console.trace(err);
                     reject(err);

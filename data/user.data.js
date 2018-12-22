@@ -23,7 +23,7 @@ module.exports = function(db) {
         post: (username, resolve, reject) => {
             db.query(
                 'INSERT INTO rpguser ' +
-                'VALUES($1) ' +
+                'VALUES(DEFAULT, $1) ' +
                 'RETURNING *'
             , [username], (err, res) => {
                 if(err) {
