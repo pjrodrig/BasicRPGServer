@@ -96,6 +96,7 @@ module.exports = function(db) {
                     let gameRow = res.rows[0];
                     gameRow.data.lastUpdated = new Date(gameRow.last_updated).getTime();
                     gameRow.data.created = new Date(gameRow.created).getTime();
+                    console.log(gameRow.data);
                     resolve(gameRow.data);
                 }
             });
