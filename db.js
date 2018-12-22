@@ -14,11 +14,14 @@ const pg = require('pg');
     ];
     
     let createTable = (query) => {
-        db.query(query, err => {
+        db.query(query, (err, res) => {
             if (err) {
                 console.trace(err);
-            } else if(tables.length) {
-                createTable(tables.splice(0, 1));
+            } else {
+                console.log(res);
+                if(tables.length) {
+                    createTable(tables.splice(0, 1));
+                }
             }
         });
     };
