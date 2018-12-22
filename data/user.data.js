@@ -7,6 +7,7 @@ module.exports = function(db) {
                 'WHERE name=$1'
             , [username], (err, res) => {
                 if(err) {
+                    console.error(err);
                     reject(err);
                 } else if(res.rows.length){
                     resolve(res.rows[0]);
@@ -26,6 +27,7 @@ module.exports = function(db) {
                 'RETURNING *'
             , [username], (err, res) => {
                 if(err) {
+                    console.error(err);
                     if(err.constraint === 'uniqueName') {
                         reject({
                             errorCode: 409,

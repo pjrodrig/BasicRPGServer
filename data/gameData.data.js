@@ -7,6 +7,7 @@ module.exports = function(db) {
                 'WHERE id = $1'
             , [gameId], (err, res) => {
                 if(err) {
+                    console.error(err);
                     reject(err);
                 } else {
                     resolve(res.rows[0].data);
@@ -20,6 +21,7 @@ module.exports = function(db) {
                 'RETURNING *'
             , [gameData, gameData.id], (err, res) => {
                 if(err) {
+                    console.error(err);
                     reject(err);
                 } else {
                     resolve(res.rows[0].data);
@@ -34,6 +36,7 @@ module.exports = function(db) {
                 'RETURNING *'
             , [gameData, gameData.id], (err, res) => {
                 if(err) {
+                    console.error(err);
                     reject(err);
                 } else {
                     resolve(res.rows[0].data);
