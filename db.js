@@ -6,10 +6,25 @@ const pg = require('pg');
         port: '5432'
     });
 
-    db.query('CREATE TABLE IF NOT EXISTS public.rpguser (id bigserial NOT NULL, name citext NOT NULL, PRIMARY KEY (id), CONSTRAINT "uniqueName" UNIQUE (name));');
-    db.query('CREATE TABLE IF NOT EXISTS public.game (id bigserial NOT NULL, data json NOT NULL, last_updated timestamp without time zone NOT NULL, created timestamp without time zone NOT NULL, PRIMARY KEY (id))');
-    db.query('CREATE TABLE IF NOT EXISTS public.rpguser_game (user_id bigint NOT NULL, game_id bigint NOT NULL, PRIMARY KEY (user_id, game_id), CONSTRAINT user_id FOREIGN KEY (user_id) REFERENCES public.rpguser (id) ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT game_id FOREIGN KEY (game_id) REFERENCES public.game (id) ON UPDATE NO ACTION ON DELETE CASCADE)');
-    db.query('CREATE TABLE IF NOT EXISTS public.game_data (id bigint NOT NULL, data json NOT NULL, PRIMARY KEY (id), CONSTRAINT gameId FOREIGN KEY (id) REFERENCES public.game (id) ON UPDATE NO ACTION ON DELETE CASCADE)');
+    let tables = [
+        'CREATE TABLE IF NOT EXISTS public.rpguser (id bigserial NOT NULL, name citext NOT NULL, PRIMARY KEY (id), CONSTRAINT "uniqueName" UNIQUE (name));',
+        'CREATE TABLE IF NOT EXISTS public.game (id bigserial NOT NULL, data json NOT NULL, last_updated timestamp without time zone NOT NULL, created timestamp without time zone NOT NULL, PRIMARY KEY (id));',
+        'CREATE TABLE IF NOT EXISTS public.rpguser_game (user_id bigint NOT NULL, game_id bigint NOT NULL, PRIMARY KEY (user_id, game_id), CONSTRAINT user_id FOREIGN KEY (user_id) REFERENCES public.rpguser (id) ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT game_id FOREIGN KEY (game_id) REFERENCES public.game (id) ON UPDATE NO ACTION ON DELETE CASCADE);',
+        'CREATE TABLE IF NOT EXISTS public.game_data (id bigint NOT NULL, data json NOT NULL, PRIMARY KEY (id), CONSTRAINT gameId FOREIGN KEY (id) REFERENCES public.game (id) ON UPDATE NO ACTION ON DELETE CASCADE);'
+    ];
+    
+    let createTable = (query) => {
+        db.query(query, err => {
+            if (err) {
+                console.trace(err);
+            } else if(tables.length) {
+                createTable(tables.splice(0, 1));
+            }
+        });
+    };
+
+    createTable(tables.splice(0, 1));
+    
 
     module.exports = {
         query: (text, values, callback) => {
