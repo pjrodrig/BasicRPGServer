@@ -7,7 +7,7 @@ module.exports = function(db) {
                 'WHERE id = $1'
             , [gameId], (err, res) => {
                 if(err) {
-                    console.error(err);
+                    console.trace(err);
                     reject(err);
                 } else {
                     let gameRow = res.rows[0];
@@ -26,7 +26,7 @@ module.exports = function(db) {
                       'ON rpguser_game.id = game.id'
             , [userId], (err, res) => {
                 if(err) {
-                    console.error(err);
+                    console.trace(err);
                     reject(err);
                 } else {
                     resolve({games: res.rows.map(row => {
@@ -44,7 +44,7 @@ module.exports = function(db) {
                 'WHERE id = $1'
             , [gameId], (err, res) => {
                 if(err) {
-                    console.error(err);
+                    console.trace(err);
                     reject(err);
                 } else {
                     resolve({lastUpdated:  new Date(res.rows[0].last_updated).getTime()});
@@ -58,7 +58,7 @@ module.exports = function(db) {
                 'RETURNING *'
             , [game], (err, res) => {
                 if(err) {
-                    console.error(err);
+                    console.trace(err);
                     reject(err);
                 } else {
                     let gameRes = res.rows[0];
@@ -76,7 +76,7 @@ module.exports = function(db) {
                         'VALUES ' + insertionString
                     , values, playerErr => {
                         if(playerErr) {
-                            console.error(playerErr);
+                            console.trace(playerErr);
                         }
                     });
                 }
@@ -90,7 +90,7 @@ module.exports = function(db) {
                 'RETURNING *'
             , [game, game.id], (err, res) => {
                 if(err) {
-                    console.error(err);
+                    console.trace(err);
                     reject(err);
                 } else {
                     let gameRow = res.rows[0];
