@@ -31,6 +31,7 @@ const pg = require('pg');
             if (err) {
                 console.trace(err);
             } else {
+                console.log(query);
                 console.log(res);
                 if(tables.length) {
                     createTable(tables.splice(0, 1));
