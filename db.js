@@ -12,9 +12,22 @@ const pg = require('pg');
         'CREATE TABLE IF NOT EXISTS public.rpguser_game (user_id bigint NOT NULL, game_id bigint NOT NULL, PRIMARY KEY (user_id, game_id), CONSTRAINT user_id FOREIGN KEY (user_id) REFERENCES public.rpguser (id) ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT game_id FOREIGN KEY (game_id) REFERENCES public.game (id) ON UPDATE NO ACTION ON DELETE CASCADE);',
         'CREATE TABLE IF NOT EXISTS public.game_data (id bigint NOT NULL, data json NOT NULL, PRIMARY KEY (id), CONSTRAINT gameId FOREIGN KEY (id) REFERENCES public.game (id) ON UPDATE NO ACTION ON DELETE CASCADE);'
     ];
+
+    const dbQuery = (text, values, callback) => {
+        pg.connect((err, client, done) => {
+            if (err) {
+                console.error('Connection error', err.stack)
+            } else {
+                client.query(text, values, (err, result) => {
+                    done();
+                    callback(err, result);
+                });
+            }
+        });
+    }
     
     let createTable = (query) => {
-        db.query(query, (err, res) => {
+        dbQuery(query, null, (err, res) => {
             if (err) {
                 console.trace(err);
             } else {
@@ -29,18 +42,5 @@ const pg = require('pg');
     createTable(tables.splice(0, 1));
     
 
-    module.exports = {
-        query: (text, values, callback) => {
-           pg.connect((err, client, done) => {
-            if (err) {
-                console.error('Connection error', err.stack)
-            } else {
-                client.query(text, values, (err, result) => {
-                    done();
-                    callback(err, result);
-                });
-            }
-           });
-        }
-     };
+    module.exports = {query: dbQuery};
 })()
